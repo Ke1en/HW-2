@@ -43,4 +43,3 @@ public class CreditCardValidator {
         return cardNumber.replaceAll("\\D", "");
     }
 }
-
