@@ -1,7 +1,26 @@
 package Java412;
 
+/**
+ * Credit card number validator via luhn algorithm
+ */
 public class CreditCardValidator {
+
+    /**
+     * Checks if credit card number is valid
+     * <p>
+     *     Do a three-step card number verification
+     *     <ol>
+     *         <li>Clears of all non-numeric characters</li>
+     *         <li>Checks the card number is in range 13-19</li>
+     *         <li>Applies luhn algorithm</li>
+     *     </ol>
+     * </p>
+     *
+     * @param cardNumber card number (may contain any characters)
+     * @return {@code true} if card number is valid or {@code false} if not
+     */
     public static boolean isValid(String cardNumber) {
+
         String cleanCardNumber = cleanInput(cardNumber);
 
         if (!checkCardNumberOnlyDigits(cleanCardNumber))
@@ -9,6 +28,12 @@ public class CreditCardValidator {
 
         if (checkCardNumberLengthFits(cleanCardNumber))
             return false;
+
+        return luhnAlgorithm(cleanCardNumber);
+
+    }
+
+    private static boolean luhnAlgorithm(String cleanCardNumber) {
 
         int sum = 0;
         boolean isEvenDigit = false;
@@ -29,6 +54,7 @@ public class CreditCardValidator {
         }
 
         return sum % 10 == 0;
+
     }
 
     private static boolean checkCardNumberLengthFits(String cleanCardNumber) {
@@ -42,4 +68,5 @@ public class CreditCardValidator {
     private static String cleanInput(String cardNumber) {
         return cardNumber.replaceAll("\\D", "");
     }
+
 }
